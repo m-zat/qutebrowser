@@ -173,10 +173,7 @@ class AbstractAction:
             raise WebTabError("{} is not a valid web action!".format(name))
         self._widget.triggerPageAction(member)
 
-    def show_source(
-            self,
-            pygments: bool = False  # pylint: disable=redefined-outer-name
-    ) -> None:
+    def show_source(self, pygments: bool = False) -> None:
         """Show the source of the current page in a new tab."""
         raise NotImplementedError
 
@@ -212,12 +209,9 @@ class AbstractAction:
                 return
 
             try:
-                # WORKAROUND for https://github.com/PyCQA/pylint/issues/491
-                # pylint: disable=no-member
                 lexer = pygments.lexers.HtmlLexer()
                 formatter = pygments.formatters.HtmlFormatter(
                     full=True, linenos='table')
-                # pylint: enable=no-member
             except AttributeError:
                 # Remaining namespace package from Pygments
                 self._show_source_fallback(source)
