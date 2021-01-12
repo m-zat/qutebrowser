@@ -31,10 +31,10 @@ Because of that, _assert_plain_key() and _assert_plain_modifier() make sure we
 handle what we actually think we do.
 """
 
+import dataclasses
 import itertools
 from typing import cast, overload, Iterable, Iterator, List, Mapping, Optional, Union
 
-import attr
 from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtGui import QKeySequence, QKeyEvent
 
@@ -336,7 +336,7 @@ def _parse_single_key(keystr: str) -> str:
     return 'Shift+' + keystr if keystr.isupper() else keystr
 
 
-@attr.s(frozen=True)
+@dataclasses.dataclass(frozen=True)
 class KeyInfo:
 
     """A key with optional modifiers.
@@ -346,8 +346,8 @@ class KeyInfo:
         modifiers: A Qt::KeyboardModifiers enum value.
     """
 
-    key: Qt.Key = attr.ib()
-    modifiers: _ModifierType = attr.ib()
+    key: Qt.Key
+    modifiers: _ModifierType
 
     @classmethod
     def from_event(cls, e: QKeyEvent) -> 'KeyInfo':

@@ -19,13 +19,12 @@
 
 """Contains the Command class, a skeleton for a command."""
 
-import inspect
 import collections
+import dataclasses
+import inspect
 import traceback
 import typing
 from typing import Any, MutableMapping, MutableSequence, Tuple, Union
-
-import attr
 
 from qutebrowser.api import cmdutils
 from qutebrowser.commands import cmdexc, argparser
@@ -34,17 +33,17 @@ from qutebrowser.utils import debug as debug_utils
 from qutebrowser.misc import objects
 
 
-@attr.s
+@dataclasses.dataclass
 class ArgInfo:
 
     """Information about an argument."""
 
-    value = attr.ib(None)
-    hide = attr.ib(False)
-    metavar = attr.ib(None)
-    flag = attr.ib(None)
-    completion = attr.ib(None)
-    choices = attr.ib(None)
+    value = None
+    hide: bool = False
+    metavar = None
+    flag = None
+    completion = None
+    choices = None
 
 
 class Command:

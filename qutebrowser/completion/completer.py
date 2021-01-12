@@ -19,7 +19,8 @@
 
 """Completer attached to a CompletionView."""
 
-import attr
+import dataclasses
+
 from PyQt5.QtCore import pyqtSlot, QObject, QTimer
 
 from qutebrowser.config import config
@@ -29,15 +30,15 @@ from qutebrowser.utils import log, utils, debug, objreg
 from qutebrowser.completion.models import miscmodels
 
 
-@attr.s
+@dataclasses.dataclass
 class CompletionInfo:
 
     """Context passed into all completion functions."""
 
-    config = attr.ib()
-    keyconf = attr.ib()
-    win_id = attr.ib()
-    cur_tab = attr.ib()
+    config: config.Config
+    keyconf: config.KeyConfig
+    win_id: str
+    cur_tab: str
 
 
 class Completer(QObject):

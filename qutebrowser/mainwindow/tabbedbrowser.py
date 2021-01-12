@@ -22,11 +22,11 @@
 import collections
 import functools
 import weakref
+import dataclasses
 import datetime
 from typing import (
     Any, Deque, List, Mapping, MutableMapping, MutableSequence, Optional, Tuple)
 
-import attr
 from PyQt5.QtWidgets import QSizePolicy, QWidget, QApplication
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, QTimer, QUrl
 
@@ -39,16 +39,16 @@ from qutebrowser.utils import (log, usertypes, utils, qtutils, objreg,
 from qutebrowser.misc import quitter
 
 
-@attr.s
+@dataclasses.dataclass
 class _UndoEntry:
 
     """Information needed for :undo."""
 
-    url = attr.ib()
-    history = attr.ib()
-    index = attr.ib()
-    pinned = attr.ib()
-    created_at = attr.ib(attr.Factory(datetime.datetime.now))
+    url: str
+    history: str
+    index: int
+    pinned: str
+    created_at = datetime.datetime.now()
 
 
 class TabDeque:
